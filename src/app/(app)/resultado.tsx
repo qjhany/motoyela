@@ -1,15 +1,16 @@
 import { useLocalSearchParams, useRouter } from "expo-router";
 import {
-    Pressable,
-    StyleSheet,
-    Text,
-    View,
+  Pressable,
+  StyleSheet,
+  Text,
+  View,
 } from "react-native";
 
 export default function Resultado() {
   const router = useRouter();
 
   const {
+    id,
     nombre,
     marca,
     modelo,
@@ -30,10 +31,18 @@ export default function Resultado() {
       </Text>
 
       <Text style={styles.subtitulo}>
-        Datos recibidos desde el formulario.
+        Registro guardado correctamente.
       </Text>
 
       <View style={styles.card}>
+
+        <Text style={styles.label}>
+          🆔 ID del registro
+        </Text>
+
+        <Text style={styles.valor}>
+          {id}
+        </Text>
 
         <Text style={styles.label}>
           👤 Propietario

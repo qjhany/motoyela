@@ -7,9 +7,17 @@ import {
   Text,
   View,
 } from "react-native";
+import { supabase } from "../../lib/supabase";
 
 export default function Inicio() {
   const router = useRouter();
+
+  const cerrarSesion = async () => {
+    const { error } = await supabase.auth.signOut();
+    if (error) {
+      alert(error.message);
+    }
+  };
 
   return (
     <ScrollView contentContainerStyle={styles.container}>
@@ -121,6 +129,86 @@ export default function Inicio() {
 
       </View>
 
+      {/* REGISTROS DE SUPABASE */}
+      <Pressable
+        style={styles.botonRegistros}
+        onPress={() => router.push("/registros")}
+      >
+        <View style={styles.registrosIcono}>
+          <Text style={styles.registrosEmoji}>
+            📋
+          </Text>
+        </View>
+
+        <View style={styles.registrosInfo}>
+          <Text style={styles.registrosTitulo}>
+            Ver registros
+          </Text>
+
+          <Text style={styles.registrosTexto}>
+            Consulta las motocicletas guardadas en Supabase.
+          </Text>
+        </View>
+
+        <Text style={styles.registrosFlecha}>
+          ›
+        </Text>
+      </Pressable>
+
+      {/* CATÁLOGO */}
+<Pressable
+  style={styles.boton}
+  onPress={() => router.push("/Catalogo")}
+>
+  <Text style={styles.emoji}>
+    📖
+  </Text>
+
+  <Text style={styles.botonTitulo}>
+    Catálogo
+  </Text>
+
+  <Text style={styles.flecha}>
+    ›
+  </Text>
+</Pressable>
+
+{/* DETALLE */}
+<Pressable
+  style={styles.boton}
+  onPress={() => router.push("/Detalle")}
+>
+  <Text style={styles.emoji}>
+    📋
+  </Text>
+
+  <Text style={styles.botonTitulo}>
+    Detalle
+  </Text>
+
+  <Text style={styles.flecha}>
+    ›
+  </Text>
+</Pressable>
+
+{/* ESCÁNER */}
+<Pressable
+  style={styles.boton}
+  onPress={() => router.push("/Escaner")}
+>
+  <Text style={styles.emoji}>
+    📷
+  </Text>
+
+  <Text style={styles.botonTitulo}>
+    Escáner
+  </Text>
+
+  <Text style={styles.flecha}>
+    ›
+  </Text>
+</Pressable>
+
       {/* RECOMENDACIÓN */}
       <View style={styles.destacado}>
 
@@ -144,6 +232,11 @@ export default function Inicio() {
         </View>
 
       </View>
+
+      {/* CERRAR SESIÓN */}
+      <Pressable style={styles.botonCerrar} onPress={cerrarSesion}>
+        <Text style={styles.textoCerrar}>Cerrar sesión</Text>
+      </Pressable>
 
       {/* FOOTER */}
       <Text style={styles.footer}>
@@ -259,7 +352,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-between",
     gap: 10,
-    marginBottom: 20,
+    marginBottom: 16,
   },
 
   /* BOTÓN */
@@ -293,6 +386,57 @@ const styles = StyleSheet.create({
     fontSize: 24,
     color: "#C97C8E",
     marginTop: 4,
+  },
+
+  /* REGISTROS */
+
+  botonRegistros: {
+    backgroundColor: "#FFFFFF",
+    borderRadius: 20,
+    padding: 16,
+    flexDirection: "row",
+    alignItems: "center",
+    borderWidth: 1,
+    borderColor: "#F1DDD6",
+    elevation: 3,
+    marginBottom: 20,
+  },
+
+  registrosIcono: {
+    width: 52,
+    height: 52,
+    borderRadius: 16,
+    backgroundColor: "#F8DDE7",
+    justifyContent: "center",
+    alignItems: "center",
+    marginRight: 14,
+  },
+
+  registrosEmoji: {
+    fontSize: 25,
+  },
+
+  registrosInfo: {
+    flex: 1,
+  },
+
+  registrosTitulo: {
+    fontSize: 17,
+    fontWeight: "bold",
+    color: "#5B3A2D",
+    marginBottom: 4,
+  },
+
+  registrosTexto: {
+    color: "#8B6A5D",
+    fontSize: 13,
+    lineHeight: 18,
+  },
+
+  registrosFlecha: {
+    fontSize: 28,
+    color: "#C97C8E",
+    marginLeft: 8,
   },
 
   /* RECOMENDACIÓN */
@@ -337,6 +481,20 @@ const styles = StyleSheet.create({
     lineHeight: 19,
   },
 
+  /* CERRAR SESIÓN */
+  botonCerrar: {
+    backgroundColor: "#D32F2F",
+    padding: 14,
+    borderRadius: 14,
+    alignItems: "center",
+    marginTop: 20,
+  },
+  
+  textoCerrar: {
+    color: "#FFFFFF",
+    fontWeight: "bold",
+  },
+
   /* FOOTER */
 
   footer: {
@@ -347,4 +505,3 @@ const styles = StyleSheet.create({
     marginBottom: 12,
   },
 });
-
